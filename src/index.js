@@ -55,6 +55,12 @@ function showTemperature(response) {
     'src',
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
+  let maxTemperature = document.querySelector('#high');
+  maxCelciusTemp = Math.round(response.data.main.temp_max);
+  maxTemperature.innerHTML = `${maxCelciusTemp} ºC`;
+  let minTemperature = document.querySelector('#low');
+  minCelciusTemp = Math.round(response.data.main.temp_min);
+  minTemperature.innerHTML = `${minCelciusTemp} ºC`;
 }
 function searchCity(city) {
   let apiKey = 'b9ba0314a93083136d968577c718e31d';
@@ -97,14 +103,22 @@ function changeMetricstoF() {
   let fahrenheitTemperature = Math.round((celciusTemperature * 9) / 5 + 32);
   currentTemp.innerHTML = `${fahrenheitTemperature} ºF`;
   celcius.checked = false;
+  let maxTemperature = document.querySelector('#high');
+  let maxFahrenheitTemp = Math.round((maxCelciusTemp * 9) / 5 + 32);
+  maxTemperature.innerHTML = `${maxFahrenheitTemp} ºF`;
+  let minTemperature = document.querySelector('#low');
+  let minFahrenheitTemp = Math.round((minCelciusTemp * 9) / 5 + 32);
+  minTemperature.innerHTML = `${minFahrenheitTemp} ºF`;
 }
 
 function changeMetricsToC() {
   let currentTemp = document.querySelector('#current-temp');
-  // let temperature = currentTemp.innerHTML;
-  //currentTemp.innerHTML = Math.round(((temperature - 32) * 5) / 9) + 'ºC';
   currentTemp.innerHTML = `${celciusTemperature} ºC`;
   fahrenheit.checked = false;
+  let maxTemperature = document.querySelector('#high');
+  maxTemperature.innerHTML = `${maxCelciusTemp} ºC`;
+  let minTemperature = document.querySelector('#low');
+  minTemperature.innerHTML = `${minCelciusTemp} ºC`;
 }
 
 let fahrenheit = document.querySelector('#temp-fahrenheit');
@@ -112,3 +126,5 @@ fahrenheit.addEventListener('click', changeMetricstoF);
 let celcius = document.querySelector('#temp-celcius');
 celcius.addEventListener('click', changeMetricsToC);
 let celciusTemperature = null;
+let maxCelciusTemp = null;
+let minCelciusTemp = null;
