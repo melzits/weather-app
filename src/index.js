@@ -46,10 +46,15 @@ function showTemperature(response) {
   let temperatureElement = document.querySelector('#current-temp');
   temperatureElement.innerHTML = `The current temperature is ${Math.round(
     response.data.main.temp
-  )}`;
-
+  )} ºC`;
+  celciusTemperature = Math.round(response.data.main.temp);
   let weatherDescription = document.querySelector('#description');
   weatherDescription.innerHTML = response.data.weather[0].main;
+  let iconElement = document.querySelector('#icon');
+  iconElement.setAttribute(
+    'src',
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
 }
 function searchCity(city) {
   let apiKey = 'b9ba0314a93083136d968577c718e31d';
@@ -87,21 +92,23 @@ function getCurrentLocation(event) {
 let button = document.querySelector('button');
 button.addEventListener('click', getCurrentLocation);
 
-//function changeMetricstoF() {
-//let currentTemp = document.querySelector("#current-temp");
-//let temperature = currentTemp.innerHTML;
-//currentTemp.innerHTML = Math.round((temperature * 9) / 5 + 32) + "ºF";
-//celcius.checked = false;
-//}
+function changeMetricstoF() {
+  let currentTemp = document.querySelector('#current-temp');
+  let fahrenheitTemperature = Math.round((celciusTemperature * 9) / 5 + 32);
+  currentTemp.innerHTML = `The current temperature is ${fahrenheitTemperature} ºF`;
+  celcius.checked = false;
+}
 
-//function changeMetricsToC() {
-//let currentTemp = document.querySelector("#current-temp");
-//let temperature = currentTemp.innerHTML;
-//currentTemp.innerHTML = Math.round(((temperature - 32) * 5) / 9) + "ºC";
-//fahrenheit.checked = false;
-//}
+function changeMetricsToC() {
+  let currentTemp = document.querySelector('#current-temp');
+  // let temperature = currentTemp.innerHTML;
+  //currentTemp.innerHTML = Math.round(((temperature - 32) * 5) / 9) + 'ºC';
+  currentTemp.innerHTML = `The current temperature is ${celciusTemperature} ºC`;
+  fahrenheit.checked = false;
+}
 
-//let fahrenheit = document.querySelector("#temp-fahrenheit");
-//fahrenheit.addEventListener("click", changeMetricstoF);
-//let celcius = document.querySelector("#temp-celcius");
-//celcius.addEventListener("click", changeMetricsToC);
+let fahrenheit = document.querySelector('#temp-fahrenheit');
+fahrenheit.addEventListener('click', changeMetricstoF);
+let celcius = document.querySelector('#temp-celcius');
+celcius.addEventListener('click', changeMetricsToC);
+let celciusTemperature = null;
