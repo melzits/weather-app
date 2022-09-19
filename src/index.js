@@ -44,12 +44,12 @@ function showTemperature(response) {
   let citySelected = document.querySelector('#city-forecast');
   citySelected.innerHTML = `5 day weather forecast for <strong>${response.data.name}</strong>`;
   let temperatureElement = document.querySelector('#current-temp');
-  temperatureElement.innerHTML = `The current temperature is ${Math.round(
-    response.data.main.temp
-  )} ºC`;
+  temperatureElement.innerHTML = `${Math.round(response.data.main.temp)} ºC`;
   celciusTemperature = Math.round(response.data.main.temp);
   let weatherDescription = document.querySelector('#description');
-  weatherDescription.innerHTML = response.data.weather[0].main;
+  weatherDescription.innerHTML = response.data.weather[0].description;
+  let windSpeed = document.querySelector('#speed');
+  windSpeed.innerHTML = Math.round(response.data.wind.speed);
   let iconElement = document.querySelector('#icon');
   iconElement.setAttribute(
     'src',
@@ -95,7 +95,7 @@ button.addEventListener('click', getCurrentLocation);
 function changeMetricstoF() {
   let currentTemp = document.querySelector('#current-temp');
   let fahrenheitTemperature = Math.round((celciusTemperature * 9) / 5 + 32);
-  currentTemp.innerHTML = `The current temperature is ${fahrenheitTemperature} ºF`;
+  currentTemp.innerHTML = `${fahrenheitTemperature} ºF`;
   celcius.checked = false;
 }
 
@@ -103,7 +103,7 @@ function changeMetricsToC() {
   let currentTemp = document.querySelector('#current-temp');
   // let temperature = currentTemp.innerHTML;
   //currentTemp.innerHTML = Math.round(((temperature - 32) * 5) / 9) + 'ºC';
-  currentTemp.innerHTML = `The current temperature is ${celciusTemperature} ºC`;
+  currentTemp.innerHTML = `${celciusTemperature} ºC`;
   fahrenheit.checked = false;
 }
 
