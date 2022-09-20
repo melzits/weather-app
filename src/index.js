@@ -74,7 +74,7 @@ function displayForecast(response) {
                    forecastDay.weather[0].icon
                  }@2x.png" alt="weathericon" width="50"/>
           <div class= "weather-forecasdescriptiont-" id="description-1"> ${
-            forecastDay.weather[0].description
+            forecastDay.weather[0].main
           }</div>
           <div class = "weather-forecast-temperatures">  
           <span class="weather-forecast-temperature-max"> ${Math.round(
@@ -93,16 +93,14 @@ function displayForecast(response) {
   forecastElement.innerHTML = forecastHTML;
 }
 function getForecast(coordinates) {
-  console.log(coordinates);
   let apiKey = 'b9ba0314a93083136d968577c718e31d';
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
-  console.log(apiUrl);
   axios.get(apiUrl).then(displayForecast);
 }
 
 function showTemperature(response) {
   let citySelected = document.querySelector('#city-forecast');
-  citySelected.innerHTML = `5 day weather forecast for <strong>${response.data.name}</strong>`;
+  citySelected.innerHTML = `Weather forecast for <strong>${response.data.name}, ${response.data.sys.country}</strong>`;
   let temperatureElement = document.querySelector('#current-temp');
   temperatureElement.innerHTML = `${Math.round(response.data.main.temp)} ºC`;
   celciusTemperature = Math.round(response.data.main.temp);
@@ -143,7 +141,6 @@ form.addEventListener('submit', handleSubmit);
 searchCity('Porto');
 
 function searchLocation(position) {
-  console.log(position);
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
   let apiKey = 'b9ba0314a93083136d968577c718e31d';
